@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Login</title>
+<title>Eliminar Noticia</title>
 {% endblock title %}
 
 {% block texto_header %}
 <h4>
-    Login
+    Eliminar Noticia
 </h4>
 {% endblock texto_header %}
 
@@ -17,12 +17,10 @@
     </div>
 </nav>
 <p>
-    <form action={% url 'login' %} method="post">
+    <form action={% url 'eliminar_noticia' noticia.id %} method="post">
         {% csrf_token %}
-        <table>
-            {{form.as_table}}
-        </table>
-        <button>Loguearse</button>
+        ¿Desea eliminar la noticia?
+        <button>Confirmar</button>
     </form>
 </p>
 {% endblock despues_del_header %}

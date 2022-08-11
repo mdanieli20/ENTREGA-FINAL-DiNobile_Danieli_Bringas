@@ -5,3 +5,6 @@ class Noticia(models.Model):
     titulo = models.CharField(max_length=30)
     contenido = models.TextField()
     fecha_creacion = models.DateField(null=True)
+    
+    def __str__(self):
+        return f'Titulo de la noticia {self.titulo}'

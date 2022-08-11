@@ -1,4 +1,5 @@
 from http.client import HTTPResponse
+import re
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login as django_login
@@ -12,7 +13,7 @@ def login(request):
             
             if user is not None:
                 django_login(request, user)
-                redirect('Home')
+                return render(request, 'home.html', {})
             else:
                 return render(request, 'accounts/login.html', {'form': form})
         else:

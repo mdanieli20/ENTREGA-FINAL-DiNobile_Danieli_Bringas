@@ -2,8 +2,14 @@ from django.shortcuts import render, redirect
 from .forms import FormNoticia, BusquedaNoticia
 from .models import Noticia
 from datetime import datetime
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
+from django.views.generic import DetailView
+from django.views.generic.edit import DeleteView, UpdateView
+from .models import Noticia
 
-# Create your views here.
+
 def home(request):
     return render(request, 'home.html')
 
@@ -36,28 +42,38 @@ def crear_noticia(request):
     
     return render(request, 'crear_noticia.html', {'form': form_noticia})
 
-def listado_noticias(request):
-    
-    listado_noticias = Noticia.objects.all()
-  
-    form = BusquedaNoticia()
-    
-    return render(request, 'listado_noticias.html', {'listado_noticias': listado_noticias, 'form' : form})
-   
+class ListadoNoticias(ListView):
+    model=Noticia
+    template_name = 'listado_noticias.html'
 
-def busqueda_noticias(request):
+    def get_queryset(self):
+        titulo = self.request.GET.get('titulo', '')
+        if titulo:
+            object_list = self.model.objects.filter(titulo__icontains=titulo)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
     
-    busqueda_titulo = request.GET.get('titulo')
-    print(busqueda_titulo)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = BusquedaNoticia()
+        return context
     
-    if busqueda_titulo:
-        busqueda_noticias = Noticia.objects.filter(titulo__icontains=busqueda_titulo)
-    else:
-        busqueda_noticias = Noticia.objects.all()
-    
-    form = BusquedaNoticia()
-    return render(request, 'busqueda_noticias.html', {'busqueda_noticias': busqueda_noticias, 'form': form})
-
-
 def nosotros(request):
     return render(request, 'nosotros.html')
+
+class EditarNoticia(LoginRequiredMixin, UpdateView):
+    model=Noticia
+    template_name = 'editar_noticia.html'
+    success_url = '/noticias'
+    fields = ['titulo', 'contenido', 'fecha_creacion']
+
+
+class EliminarNoticia(LoginRequiredMixin, DeleteView):
+    model=Noticia
+    template_name = 'eliminar_noticia.html'
+    success_url = '/noticias'
+    
+class MostrarNoticia(DetailView):
+    model = Noticia
+    template_name = 'mostrar_noticia.html'

@@ -1,40 +1,42 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Noticias</title>
+<title>Listado de Noticias</title>
 {% endblock title %}
 
 {% block texto_header %}
-<h4>
+<h1>
     Listado de Noticias
-</h4>
+</h1>
 {% endblock texto_header %}
 
 {% block despues_del_header %}
-
 <nav class="navbar-light bg-light static-top noticias">
     <div class="container">
         <a class="navbar-brand" href={% url 'crear_noticia' %}>Crear Noticia</a>
     </div>
 </nav>
 <p>
-    <form action={% url 'busqueda_noticias' %}>
+    <form action={% url 'listado_noticias' %}>
         {{form}}
         <button>Buscar</button>
     </form>
 </p>
 
 <p>
-    {% if listado_noticias %}
+    {% if object_list %}
     <ul>
-        {% for noticia in listado_noticias %}
-        <li>Título de la noticia: {{noticia.titulo}}</li>
+        {% for noticia in object_list %}
+        <li>
+            {{noticia}}
+            <a href={% url 'mostrar_noticia' noticia.id %}>Mostrar</a>
+            <a href={% url 'editar_noticia' noticia.id %}>Editar</a>
+            <a href={% url 'eliminar_noticia' noticia.id %}>Eliminar</a>
+        </li>
         {% endfor %}
     </ul>
     {% else %}
-    No se encontraron noticias.
+    No se encontraron datos.
     {% endif %}
 </p>
-
-
 {% endblock despues_del_header %}
