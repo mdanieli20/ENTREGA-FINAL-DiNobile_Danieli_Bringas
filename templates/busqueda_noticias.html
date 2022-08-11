@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Noticias</title>
+{% endblock title %}
+
+{% block texto_header %}
+<h4>
+    Listado de Noticias
+</h4>
+{% endblock texto_header %}
+
+{% block despues_del_header %}
+
+<nav class="navbar-light bg-light static-top noticias">
+    <div class="container">
+        <a class="navbar-brand" href={% url 'crear_noticia' %}>Crear Noticia</a>
+    </div>
+</nav> 
+
+<p>
+    <form action={% url 'busqueda_noticias' %}>
+        {{form}}
+        <button>Buscar</button>
+    </form>
+</p>
+
+<p>
+    {% if busqueda_noticias %}
+    <ul>
+        {% for noticia in busqueda_noticias %}
+        <li>Título de la noticia: {{noticia.titulo}}</li>
+        <ul>
+            <p>{{noticia.contenido}}</p>
+        </ul>
+        <ul>
+            <p>{{noticia.fecha_creacion}}</p>
+        </ul>
+        {% endfor %}
+    </ul>
+    {% else %}
+    No se encontraron noticias.
+    {% endif %}
+</p>
+
+
+{% endblock despues_del_header %}
