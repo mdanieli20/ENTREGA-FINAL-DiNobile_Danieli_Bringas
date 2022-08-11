@@ -29,9 +29,14 @@
         {% for noticia in object_list %}
         <li>
             {{noticia}}
-            <a href={% url 'mostrar_noticia' noticia.id %}>Mostrar</a>
-            <a href={% url 'editar_noticia' noticia.id %}>Editar</a>
-            <a href={% url 'eliminar_noticia' noticia.id %}>Eliminar</a>
+
+            <nav class="navbar-light listado">
+                <div>
+                    <a class="navbar-brand" href={% url 'mostrar_noticia' noticia.id %}>Mostrar</a>
+                    <a class="navbar-brand" href={% url 'editar_noticia' noticia.id %}>Editar</a>
+                    <a class="navbar-brand" href={% url 'eliminar_noticia' noticia.id %}>Eliminar</a>
+                </div>
+            </nav>
         </li>
         {% endfor %}
     </ul>

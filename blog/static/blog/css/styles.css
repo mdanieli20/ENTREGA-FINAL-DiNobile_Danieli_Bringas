@@ -4073,6 +4073,9 @@ textarea.form-control-lg {
 .noticias {
     text-align: right;
 }
+.listado {
+  text-align: left;
+}
 .navbar-text {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
