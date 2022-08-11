@@ -19,8 +19,10 @@
         </table>
         <button>Editar</button>
     </form>
-    <p>
-        <a href={% url 'cambiar_password' %}>Cambiar password</a>
-    </p>
+    <nav class="navbar-light bg-light static-top noticias">
+        <div class="container">
+            <a class="navbar-brand" href={% url 'cambiar_password' %}>Cambiar Password</a>
+        </div>
+    </nav>
 </p>
 {% endblock despues_del_header %}
