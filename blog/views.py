@@ -3,7 +3,6 @@ from .forms import FormNoticia, BusquedaNoticia
 from .models import Noticia
 from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.views.generic.edit import DeleteView, UpdateView
@@ -16,7 +15,7 @@ def home(request):
 
 def crear_noticia(request):    
     if request.method == 'POST':
-        form = FormNoticia(request.POST)
+        form = FormNoticia(request.POST,request.FILES)
         
         if form.is_valid():
             data = form.cleaned_data
@@ -28,7 +27,8 @@ def crear_noticia(request):
             noticia = Noticia(
                 titulo=data.get('titulo'),
                 contenido=data.get('contenido'),
-                fecha_creacion=fecha
+                fecha_creacion=fecha,
+                imagen=data.get('imagen')
             )
             noticia.save()
 
@@ -66,7 +66,7 @@ class EditarNoticia(LoginRequiredMixin, UpdateView):
     model=Noticia
     template_name = 'editar_noticia.html'
     success_url = '/noticias'
-    fields = ['titulo', 'contenido', 'fecha_creacion']
+    fields = ['titulo', 'contenido', 'fecha_creacion','imagen']
 
 
 class EliminarNoticia(LoginRequiredMixin, DeleteView):

@@ -27,6 +27,9 @@
         <li>
             {{noticia.fecha_creacion}}
         </li>
+            {% if noticia.imagen %}
+            <img src="{{ noticia.imagen.url }}" alt="Image" class="img-fluid">
+            {% endif %}  
     </ul>
 </p>
 {% endblock despues_del_header %}

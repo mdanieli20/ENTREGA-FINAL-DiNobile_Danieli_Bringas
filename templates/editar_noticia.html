@@ -17,7 +17,7 @@
     </div>
 </nav>
 <p>
-    <form action={% url 'editar_noticia' noticia.id %} method="post">
+    <form action={% url 'editar_noticia' noticia.id %} method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
             {{form.as_table}}
