@@ -65,7 +65,8 @@ def editar_perfil(request):
                 
             user.email = data.get('email') if data.get('email') else user.email
             mas_datos_usuario.avatar = data.get('avatar') if data.get('avatar') else mas_datos_usuario.avatar
-           
+            mas_datos_usuario.perfil_url = data.get('perfil_url') if data.get('perfil_url') else mas_datos_usuario.perfil_url
+            
             mas_datos_usuario.save()
             user.save()
     
@@ -79,7 +80,8 @@ def editar_perfil(request):
                 'email': user.email,
                 'first_name': user.first_name,
                 'last_name': user.last_name,
-                'avatar': mas_datos_usuario.avatar
+                'avatar': mas_datos_usuario.avatar,
+                'perfil_url': mas_datos_usuario.perfil_url
             }
         )
 
