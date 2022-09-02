@@ -15,6 +15,7 @@
     <form action={% url 'crear_noticia' %} method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
+            {{form.media}}
             {{form.as_table}}
         </table>
         <button>Crear</button>
