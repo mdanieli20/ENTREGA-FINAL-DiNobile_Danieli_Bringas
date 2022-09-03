@@ -3,6 +3,7 @@ from .forms import FormNoticia, BusquedaNoticia
 from .models import Noticia
 from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.views.generic.edit import DeleteView, UpdateView
@@ -12,7 +13,7 @@ from .models import Noticia
 def home(request):
     return render(request, 'home.html')
 
-
+@login_required
 def crear_noticia(request):    
     if request.method == 'POST':
         form = FormNoticia(request.POST,request.FILES)
