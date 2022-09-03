@@ -1,5 +1,7 @@
 #Proyecto Entrega Final
   
+Video explicativo: https://youtu.be/yEb1qeIdOPI
+
 * Equipo  
   - Lucas Di Nobile
   - Manuel Danieli 
